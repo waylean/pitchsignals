@@ -1,0 +1,48 @@
+{
+  "profile_id": "football_market_proxy_candidate",
+  "version": "0.7.1",
+  "domain": "football",
+  "maturity": "candidate",
+  "horizon_profile": "market_snapshot_unknown_or_closing_proxy",
+  "competition_scope": "top_european_leagues",
+  "data_tier": "public_free_market_proxy",
+  "training_dataset_id": "football_data_1920_2021_2122",
+  "validation_report_id": "football_data_multi_window_rolling_backtest",
+  "test_report_id": "football_data_multi_window_rolling_backtest",
+  "created_at": "2026-06-17",
+  "promoted_at": null,
+  "model_weights": {
+    "football_data_market_league_calibrated": 1.0
+  },
+  "metrics": {
+    "window_count": 3,
+    "test_cases": 5403,
+    "weighted_calibrated_log_loss": 0.970118,
+    "weighted_raw_market_log_loss": 0.970453,
+    "weighted_calibrated_brier": 0.576933,
+    "weighted_raw_market_brier": 0.57705,
+    "uniform_promotions": 3,
+    "raw_market_promotions": 3,
+    "raw_market_holds": 0,
+    "leakage_issues": 0,
+    "promotion_decision": "promote",
+    "promotion_gate_id": "football_data_multi_window_market_proxy_gate"
+  },
+  "lineage": {
+    "parent_profile_id": "football_research_alpha",
+    "previous_candidate_version": "0.7.0",
+    "source": "football_data_multi_window_rolling_backtest",
+    "promotion_status": "market_proxy_promoted_not_stable",
+    "promotion_reasons": [
+      "Three rolling market-proxy windows pass uniform, home-prior, and raw-market gates.",
+      "Supported calibration bins pass while sparse high-confidence bins remain visible in metrics.",
+      "The profile is not stable because the source horizon is still closing/matchday proxy data."
+    ]
+  },
+  "notes": [
+    "Candidate artifact for the rolling market-proxy benchmark.",
+    "Version 0.7.1 adds league-segmented market temperature calibration.",
+    "The market-proxy promotion gate passes, but this profile is not eligible as a stable default because it uses closing/matchday proxy data.",
+    "This profile should not be presented as true T-48/T-24/T-2/T-1h performance."
+  ]
+}

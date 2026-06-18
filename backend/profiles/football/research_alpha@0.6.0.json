@@ -1,0 +1,37 @@
+{
+  "profile_id": "football_research_alpha",
+  "version": "0.6.0",
+  "domain": "football",
+  "maturity": "research_alpha",
+  "horizon_profile": null,
+  "competition_scope": "football_all_supported",
+  "data_tier": "research_public_free",
+  "training_dataset_id": null,
+  "validation_report_id": "worldcup_2022_group_backtest",
+  "test_report_id": "football_data_rolling_backtest",
+  "created_at": "2026-06-17",
+  "promoted_at": null,
+  "model_weights": {
+    "weighted_evidence": 0.7,
+    "football_market_only": 0.12,
+    "football_elo_strength_baseline": 0.06,
+    "football_poisson_score_grid": 0.06,
+    "football_dixon_coles_score_grid": 0.06
+  },
+  "metrics": {
+    "claim_level": "research_alpha",
+    "latest_market_proxy_test_log_loss": 0.955005,
+    "latest_market_proxy_test_brier": 0.567116,
+    "latest_market_proxy_test_cases": 1752
+  },
+  "lineage": {
+    "parent_profile_id": null,
+    "source": "initial_file_profile_store",
+    "promotion_status": "not_promoted_to_1_0"
+  },
+  "notes": [
+    "Default football ensemble profile loaded from the profile store.",
+    "This profile is not a 1.0 stable profile; it remains research_alpha until slice-aware promotion and rollback gates pass.",
+    "Rolling Football-Data validation currently proves a market proxy benchmark, not a full self-trained football ensemble."
+  ]
+}

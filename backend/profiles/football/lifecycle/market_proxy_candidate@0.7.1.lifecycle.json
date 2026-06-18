@@ -1,0 +1,43 @@
+{
+  "artifact_id": "football_market_proxy_candidate@0.7.1_lifecycle",
+  "profile_id": "football_market_proxy_candidate",
+  "profile_version": "0.7.1",
+  "domain": "football",
+  "status": "market_proxy_promoted_not_stable",
+  "created_at": "2026-06-17",
+  "previous_profile_version": "0.7.0",
+  "source_report_id": "football_data_multi_window_rolling_backtest",
+  "decision": {
+    "gate_id": "football_data_multi_window_market_proxy_gate",
+    "candidate_model_id": "football_data_market_league_calibrated",
+    "decision": "promote",
+    "reasons": [
+      "Candidate passed all three rolling market-proxy windows against uniform, home-prior, and raw-market baselines.",
+      "Supported calibration-bin governance passed after sparse high-confidence bins were kept as warnings instead of one-sample vetoes.",
+      "Promotion is limited to market-proxy status because true T-48/T-24/T-2/T-1h odds snapshots are not integrated."
+    ]
+  },
+  "metrics": {
+    "window_count": 3,
+    "test_cases": 5403,
+    "weighted_candidate_log_loss": 0.970118,
+    "weighted_raw_market_log_loss": 0.970453,
+    "weighted_candidate_brier": 0.576933,
+    "weighted_raw_market_brier": 0.57705,
+    "uniform_promotions": 3,
+    "raw_market_promotions": 3,
+    "raw_market_holds": 0,
+    "leakage_issues": 0
+  },
+  "artifacts": {
+    "json": "outputs/football_data_multi_window_rolling_backtest.json",
+    "report": "outputs/football_data_multi_window_rolling_backtest_report.md",
+    "profile": "backend/profiles/football/market_proxy_candidate@0.7.1.json"
+  },
+  "next_actions": [
+    "Keep the profile out of stable defaults until true horizon odds snapshots are integrated.",
+    "Replace single-temperature league calibration with validation-selected segmented calibration or isotonic/Platt-style calibration.",
+    "Add true horizon odds snapshots before claiming T-48/T-24/T-2/T-1h performance.",
+    "Add automatic promotion and rollback writeback for stable profile versions."
+  ]
+}

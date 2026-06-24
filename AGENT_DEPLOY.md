@@ -9,6 +9,10 @@ Required replacements:
 3. `YOUR_LLM_API_KEY`
 4. `YOUR_THE_ODDS_API_KEY`
 
+Optional replacement:
+
+1. `YOUR_ZHIHU_ACCESS_SECRET`
+
 ```text
 你是一个本地部署 Agent。请在当前机器上部署 PitchSignals，并保证我可以通过浏览器访问。
 
@@ -35,8 +39,17 @@ THE_ODDS_API_DEFAULT_SPORT_KEY=soccer_fifa_world_cup
 THE_ODDS_API_SCHEDULE_SPORT_KEYS=soccer_fifa_world_cup,soccer_uefa_champs_league,soccer_epl,soccer_spain_la_liga,soccer_italy_serie_a,soccer_germany_bundesliga,soccer_france_ligue_one,soccer_usa_mls
 
 AGENT_REACH_ENABLED=true
+ZHIHU_SEARCH_ENABLED=false
+ZHIHU_ACCESS_SECRET=
+ZHIHU_SEARCH_MODE=zhihu
+ZHIHU_SEARCH_MAX_QUERIES=4
+ZHIHU_SEARCH_RESULTS_PER_QUERY=3
 STRICT_WORKFLOW=true
 PREDICTION_LEDGER_PATH=work/prediction_ledger.jsonl
+
+如果我提供了知乎开放平台 Access Secret，请将：
+ZHIHU_SEARCH_ENABLED=true
+ZHIHU_ACCESS_SECRET=YOUR_ZHIHU_ACCESS_SECRET
 
 部署步骤：
 1. 进入 backend

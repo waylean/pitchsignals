@@ -53,6 +53,34 @@ Currently useful:
 3. Public previews and match reports
 4. Public weather APIs where venue/time are known
 5. StatsBomb Open Data for historical replay research
+6. Optional Zhihu Open Platform search for Chinese-language context
+
+## Optional Zhihu Search
+
+Zhihu Open Platform can be used as an optional search enhancement.
+
+Docs: [https://developer.zhihu.com/docs?key=authorization](https://developer.zhihu.com/docs?key=authorization)
+
+Used for:
+
+1. Chinese-language football discussion
+2. Match background and context
+3. Public community signals around players, teams, tactics, and narratives
+
+Configuration:
+
+```env
+ZHIHU_SEARCH_ENABLED=true
+ZHIHU_ACCESS_SECRET=your-zhihu-access-secret
+ZHIHU_SEARCH_MODE=zhihu
+```
+
+Fallback behavior:
+
+1. If the key is missing, Zhihu search is skipped.
+2. If authorization fails, the error is recorded as collection metadata.
+3. The default public search path remains available.
+4. Zhihu results are treated as candidate evidence, not verified facts.
 
 ## Difficult Data
 
@@ -72,4 +100,3 @@ Recommended treatment:
 3. Cap confidence for unofficial claims.
 4. Do not let rumor dominate the model.
 5. Show lower prediction confidence when these signals are missing.
-

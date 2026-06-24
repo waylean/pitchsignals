@@ -16,6 +16,7 @@ from app.data_sources.open_meteo import OpenMeteoWeatherSource
 from app.data_sources.the_odds_api import TheOddsApiOddsSource
 from app.data_sources.web_search import WebSearchSource
 from app.data_sources.world_football_elo import WorldFootballEloSource
+from app.data_sources.zhihu_search import ZhihuSearchSource
 from app.domain_packs.registry import get_domain_pack
 from app.evidence.scoring import score_recency
 from app.evidence.store import InMemoryEvidenceStore
@@ -55,6 +56,7 @@ class PredictionWorkflow:
             TheOddsApiOddsSource(),
             FootballMatchContextSource(),
             OpenMeteoWeatherSource(),
+            ZhihuSearchSource(),
             WebSearchSource(),
             FootballPublicSource(),
         ]

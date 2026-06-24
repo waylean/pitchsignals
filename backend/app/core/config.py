@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     the_odds_api_regions: str = "us,uk,eu"
 
     agent_reach_enabled: bool = True
+    zhihu_search_enabled: bool = False
+    zhihu_access_secret: str | None = None
+    zhihu_search_mode: str = "zhihu"
+    zhihu_search_max_queries: int = 4
+    zhihu_search_results_per_query: int = 3
     strict_workflow: bool = True
     prediction_ledger_path: str = "work/prediction_ledger.jsonl"
 

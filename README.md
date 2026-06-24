@@ -55,7 +55,7 @@ PitchSignals 仅用于研究、学习和模型实验。
 PitchSignals 当前支持：
 
 1. 获取今明两天的足球赛程
-2. 获取比赛 1X2 市场赔率
+2. 获取比赛 1X2 赛前市场数据
 3. 将赔率转换为市场隐含概率
 4. 收集球队实力、阵容伤停、战术对位、裁判环境、舆论叙事等信息
 5. 使用 LLM 将难结构化的公开文本转成低置信结构化信号
@@ -63,6 +63,7 @@ PitchSignals 当前支持：
 7. 给出明确预测结果、综合置信度和参考数据权重
 8. 在切换比赛时保留已经预测过的结果
 9. 支持中文/英文界面，中文界面会显示中文国家名
+10. 可选接入知乎开放平台搜索，增强中文语境下的赛前资料检索
 
 ## 需要准备什么
 
@@ -72,8 +73,11 @@ PitchSignals 当前支持：
 2. Node.js 18+
 3. 一个兼容 OpenAI API 协议的 LLM API key
 4. 一个免费的 The Odds API key
+5. 可选：知乎开放平台 Access Secret，用于增强中文搜索
 
 The Odds API 官网：[https://the-odds-api.com/](https://the-odds-api.com/)
+
+知乎开放平台文档：[https://developer.zhihu.com/docs?key=authorization](https://developer.zhihu.com/docs?key=authorization)
 
 LLM 接入方式：
 
@@ -99,6 +103,13 @@ LLM_API_KEY=your-llm-api-key
 THE_ODDS_API_KEY=your-the-odds-api-key
 THE_ODDS_API_REGIONS=us,uk,eu
 THE_ODDS_API_SCHEDULE_SPORT_KEYS=soccer_fifa_world_cup,soccer_uefa_champs_league,soccer_epl,soccer_spain_la_liga,soccer_italy_serie_a,soccer_germany_bundesliga,soccer_france_ligue_one,soccer_usa_mls
+
+# Optional: Zhihu Open Platform search enhancement
+ZHIHU_SEARCH_ENABLED=false
+ZHIHU_ACCESS_SECRET=
+ZHIHU_SEARCH_MODE=zhihu
+ZHIHU_SEARCH_MAX_QUERIES=4
+ZHIHU_SEARCH_RESULTS_PER_QUERY=3
 ```
 
 ## Agent 快速部署
@@ -114,7 +125,7 @@ THE_ODDS_API_SCHEDULE_SPORT_KEYS=soccer_fifa_world_cup,soccer_uefa_champs_league
 
 ## 如果拿不到赔率怎么办
 
-赔率是非常重要的方向性数据，因为市场价格通常聚合了大量公开和半公开信息。
+赛前市场数据是非常重要的方向性数据，因为市场价格通常聚合了大量公开和半公开信息。
 
 如果 The Odds API 拿不到数据：
 
@@ -203,6 +214,8 @@ PitchSignals 的核心架构分为四层：
 
 非官方信息不会直接高权重影响预测。它会先通过 LLM 转成低置信结构化信号，再进入模型。
 
+可选增强：如果配置了知乎开放平台 Access Secret，数据层会额外调用知乎搜索接口检索中文内容。这个能力适合补充赛前讨论、球队背景、中文社区观点等信息；如果没有配置或接口不可用，系统会自动回到默认公开搜索链路。
+
 ### 2. 预测权重层
 
 预测权重层用于决定不同数据因子对最终预测的影响。
@@ -211,7 +224,7 @@ PitchSignals 的核心架构分为四层：
 
 当前主要因子包括：
 
-1. 市场赔率
+1. 赛前市场数据
 2. 球队实力
 3. 阵容与伤停
 4. 战术对位

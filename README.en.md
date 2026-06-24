@@ -56,7 +56,7 @@ License: this project uses a non-commercial license. See [LICENSE](./LICENSE).
 PitchSignals currently supports:
 
 1. Fetching today and tomorrow's football fixtures
-2. Fetching 1X2 market odds
+2. Fetching 1X2 pre-match market data
 3. Converting odds into market-implied probabilities
 4. Collecting signals about team strength, lineup/injury, tactics, referee/environment, and public narrative
 5. Using an LLM to structure noisy public text into low-confidence structured signals
@@ -64,6 +64,7 @@ PitchSignals currently supports:
 7. Displaying pick, confidence, and factor weights
 8. Keeping previous predictions when switching between matches
 9. Chinese/English UI, including translated country names in Chinese mode
+10. Optional Zhihu Open Platform search for Chinese-language context
 
 ## Requirements
 
@@ -73,8 +74,11 @@ Minimum:
 2. Node.js 18+
 3. An OpenAI-compatible LLM API key
 4. A free The Odds API key
+5. Optional: Zhihu Open Platform Access Secret for Chinese search enrichment
 
 The Odds API website: [https://the-odds-api.com/](https://the-odds-api.com/)
+
+Zhihu Open Platform docs: [https://developer.zhihu.com/docs?key=authorization](https://developer.zhihu.com/docs?key=authorization)
 
 LLM integration:
 
@@ -100,6 +104,13 @@ LLM_API_KEY=your-llm-api-key
 THE_ODDS_API_KEY=your-the-odds-api-key
 THE_ODDS_API_REGIONS=us,uk,eu
 THE_ODDS_API_SCHEDULE_SPORT_KEYS=soccer_fifa_world_cup,soccer_uefa_champs_league,soccer_epl,soccer_spain_la_liga,soccer_italy_serie_a,soccer_germany_bundesliga,soccer_france_ligue_one,soccer_usa_mls
+
+# Optional: Zhihu Open Platform search enhancement
+ZHIHU_SEARCH_ENABLED=false
+ZHIHU_ACCESS_SECRET=
+ZHIHU_SEARCH_MODE=zhihu
+ZHIHU_SEARCH_MAX_QUERIES=4
+ZHIHU_SEARCH_RESULTS_PER_QUERY=3
 ```
 
 ## Agent Quick Deploy
@@ -197,6 +208,8 @@ It currently covers:
 It tries to separate official data, semi-official data, media reports, predictions, and unofficial rumors.
 
 Unofficial information is not allowed to dominate the model. It is converted by the LLM into low-confidence structured signals first.
+
+Optional enhancement: if a valid Zhihu Open Platform Access Secret is configured, the data layer also queries Zhihu search endpoints for Chinese-language context. If it is not configured or the API is unavailable, the app falls back to the default public search path.
 
 ### 2. Prediction Weight Layer
 
